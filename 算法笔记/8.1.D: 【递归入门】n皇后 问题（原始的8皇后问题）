@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> tmp;
+int vis[11] ={0};
+int flag = true;
+int n;
+void DFS(int idx) {
+    for (int i = 0; i < idx; ++i) {
+        for (int j = i+1; j < idx; ++j) {
+            if(abs(i-j) == abs(tmp[i] - tmp[j]))
+                return;
+        }
+    }
+
+    if(idx == n){
+        for(int i = 0; i < tmp.size(); i++) {
+            if (i == 0) printf("%d",tmp[i]+1);
+            else printf(" %d",tmp[i]+1);
+        }
+        flag = false;
+        printf("\n");
+        return;
+    }
+
+    for(int i = 0; i < n; i++){
+        if(!vis[i]){
+            vis[i] = 1;
+            tmp.push_back(i);
+            DFS(idx+1);
+            tmp.pop_back();
+            vis[i] = 0;
+        }
+    }
+}
+int main()
+{
+
+    cin >> n;
+    DFS(0);
+    if(flag) printf("no solute!\n");
+    return 0;
+}
