@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, r;
+
+vector<int> tmp;
+
+int vis[11] = {0};
+void DFS(int i, int x) {
+    if(i == r) {
+        for(int i = 0; i < tmp.size(); i++) {
+            if (i == 0)printf("%d", tmp[i]);
+            else printf(" %d", tmp[i]);
+        }
+        printf("\n");
+        return;
+    }
+    for (int j = 1; j <= n; ++j) {
+        if(!vis[j] && j > x) {
+            vis[j]=1;
+            tmp.push_back(j);
+            DFS(i+1, j);
+            tmp.pop_back();
+            vis[j]=0;
+        }
+
+    }
+
+}
+
+int main()
+{
+
+    cin >> n >> r;
+    DFS(0, 0);
+    return 0;
+}
