@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string str;
+bool judge() {
+    stack<char> s;
+    for(auto c: str){
+
+        if(c=='{' || c=='(' || c=='[')
+            s.push(c);
+        else if(c=='}'){
+            if(s.empty() || s.top() != '{') return false;
+            s.pop();
+        }
+        else if(c==']'){
+            if(s.empty() || s.top() != '[') return false;
+            s.pop();
+        }
+        else if(c==')'){
+            if(s.empty() || s.top() != '(') return false;
+            s.pop();
+        }
+    }
+    if(!s.empty()) return false;
+    return true;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    int t;
+    cin >> t;
+    while(t--) {
+        cin >> str;
+        if(judge())printf("yes\n");
+        else printf("no\n");
+    }
+    return 0;
+}
