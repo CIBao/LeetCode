@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+stack<int> s;
+int n;
+int cnt = 0;
+void DFS(int l, int r) {
+    if(l==n && r==n){
+        cnt++;
+        return;
+    }
+    if(l<n) DFS(l+1, r);
+    if(r<l) DFS(l, r+1);
+}
+int main()
+{
+
+    cin >> n;
+    DFS(0, 0);
+    printf("%d\n",cnt);
+    return 0;
+}
