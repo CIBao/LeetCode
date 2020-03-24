@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int m, n;
+int sx, sy, ex, ey;
+int a[30][30]={0};
+int vis[30][30]={0};
+bool flag = true;
+
+void DFS(int x, int y, string res){
+    if(!a[x][y] || vis[x][y])
+        return;
+    if(x==ex && y == ey) {
+        printf("%s\n",res.c_str());
+        flag = false;
+        return;
+    }
+    vis[x][y] = 1;
+    if(a[x][y-1])DFS(x, y-1, res + "->("+to_string(x)+","+to_string(y-1)+")");
+    if(a[x-1][y])DFS(x-1, y, res + "->("+to_string(x-1)+","+to_string(y)+")");
+    if(a[x][y+1])DFS(x, y+1, res + "->("+to_string(x)+","+to_string(y+1)+")");
+    if(a[x+1][y])DFS(x+1, y, res + "->("+to_string(x+1)+","+to_string(y)+")");
+    vis[x][y] = 0;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin >> m >> n;
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            cin >> a[i][j];
+        }
+    }
+    cin >> sx >> sy >> ex >> ey;
+
+    DFS(sx, sy, "("+to_string(sx)+","+to_string(sy)+")");
+    if(flag) printf("-1\n");
+    return 0;
+}
